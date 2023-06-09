@@ -4,3 +4,7 @@ body {
   font-family: "Fredoka", sans-serif;
   background-color: #f3f3f3;
 }
+
+.react-tabs__tab--selected {
+  background-color: transparent;
+}

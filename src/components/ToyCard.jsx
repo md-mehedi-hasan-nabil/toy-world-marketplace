@@ -1,13 +1,17 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
-export default function ToyCard() {
+export default function ToyCard({ toy }) {
+  const { _id, name, picture, price, rating, rating_count, sub_category } =
+    toy || {};
+
+  console.log(toy);
   return (
     <article className="col-span-12 md:col-span-3 rounded-xl shadow-lg bg-[#F3F3F3] p-4 border-2 transition-all border-[#F3F3F3] hover:border-[#6C6A69]">
       <div className="flex justify-between items-center">
         <p className="uppercase text-[#6C6A69] tracking-widest font-semibold text-[14px]">
-          teddy bear
+          {sub_category}
         </p>
         <span>
           <svg
@@ -28,23 +32,30 @@ export default function ToyCard() {
       </div>
       <img
         className="w-[148px] h-[148px] object-cover rounded-full mx-auto mt-3"
-        src="https://images.unsplash.com/photo-1543886151-3bc2b944c718"
-        alt=""
+        src={picture}
+        alt={name}
       />
       <h2 className="text-2xl font-semibold line-clamp-1 text-[#403E3D] my-3">
-        I do not know how to spe...
+        {name}
       </h2>
       <div className="flex items-center">
-        <Rating /> <span className="text-lg">({12})</span>
+        <Rating /> <span className="text-lg">({rating_count})</span>
       </div>
       <div className="flex justify-between items-center mt-3">
         <span className="text-[#312F2E]  font-medium text-lg tracking-widest">
-          $20.56
+          ${price}
         </span>
-        <Link to="/" className="text-[#312F2E]  font-medium text-lg">
+        <Link
+          to={`/details/${_id}`}
+          className="text-[#312F2E]  font-medium text-lg"
+        >
           View Details
         </Link>
       </div>
     </article>
   );
 }
+
+ToyCard.propTypes = {
+  toy: PropTypes.object.isRequired,
+};
