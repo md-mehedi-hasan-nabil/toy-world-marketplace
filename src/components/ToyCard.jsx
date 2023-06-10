@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
 export default function ToyCard({ toy }) {
-  const { _id, name, picture, price, rating, rating_count, sub_category } =
+  const { _id, name, picture, price, rating, sub_category } =
     toy || {};
-
-  console.log(toy);
+    
   return (
-    <article className="col-span-12 md:col-span-3 rounded-xl shadow-lg bg-[#F3F3F3] p-4 border-2 transition-all border-[#F3F3F3] hover:border-[#6C6A69]">
+    <article
+      data-aos="zoom-out-up"
+      className="col-span-12 md:col-span-3 rounded-xl shadow-lg bg-[#F3F3F3] p-4 border-2 transition-all border-[#F3F3F3] hover:border-[#6C6A69]"
+    >
       <div className="flex justify-between items-center">
         <p className="uppercase text-[#6C6A69] tracking-widest font-semibold text-[14px]">
           {sub_category}
@@ -39,7 +41,7 @@ export default function ToyCard({ toy }) {
         {name}
       </h2>
       <div className="flex items-center">
-        <Rating /> <span className="text-lg">({rating_count})</span>
+        <Rating /> <span className="text-lg">(4)</span>
       </div>
       <div className="flex justify-between items-center mt-3">
         <span className="text-[#312F2E]  font-medium text-lg tracking-widest">

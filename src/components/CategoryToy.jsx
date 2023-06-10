@@ -26,7 +26,9 @@ export default function CategoryToy({ category }) {
         {loading ? (
           <span className="loading loading-bars loading-lg"></span>
         ) : toys?.length > 0 ? (
-          toys?.map((toy) => <ToyCard key={toy._id} toy={toy} />)
+          toys?.map((toy) => (
+            <ToyCard key={toy._id} toy={toy} />
+          ))
         ) : (
           <h2 className="text-lg col-span-6">No toy found.</h2>
         )}
