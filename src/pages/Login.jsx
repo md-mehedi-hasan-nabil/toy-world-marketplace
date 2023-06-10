@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import logo from "../assets/logo.svg";
-import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../Context/AuthProvider";
 
 export default function Login() {
   const location = useLocation();
-  const { loginUser, googleLogin, githubLogin, user } = useContext(AuthContext);
+  const { loginUser, googleLogin, user } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
@@ -15,9 +14,7 @@ export default function Login() {
   const redirectLocation = location?.state?.from?.pathname || "/";
 
   // google provider
-  const googleProvider = new GoogleAuthProvider();
-  // github provider
-  const githubProvider = new GithubAuthProvider();
+  const googleProvider = new GoogleAuthProvider();;
 
   if (user) {
     return <Navigate to="/" state={{ from: location }} replace />;
@@ -34,16 +31,6 @@ export default function Login() {
         navigate(redirectLocation);
       })
       .catch((err) => console.log(err.message));
-  };
-
-  // handle github login
-  const handleGithubLogin = () => {
-    githubLogin(githubProvider)
-      .then((res) => {
-        console.log(res.user);
-        navigate(redirectLocation);
-      })
-      .catch((err) => console.log(err?.message));
   };
 
   // sign in user
@@ -73,7 +60,7 @@ export default function Login() {
     e.target.reset();
   };
 
-  document.title = "Tasty Cooks | Login Page";
+  document.title = "Login Page";
 
   return (
     <section className="container hero min-h-screen bg-base-200">

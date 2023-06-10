@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
@@ -14,8 +14,6 @@ export default function Navbar() {
       })
       .catch((err) => console.log(err?.message));
   };
-
-  console.log(user)
 
   // Home, All Toys, My Toys, Add A Toy, Blogs
   const links = [
@@ -72,9 +70,14 @@ export default function Navbar() {
             >
               {links?.map((link) => (
                 <li key={link.id}>
-                  <Link className="text-lg" to={link.path}>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "active text-lg" : " text-lg"
+                    }
+                    to={link.path}
+                  >
                     {link.name}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -87,9 +90,14 @@ export default function Navbar() {
           <ul className="menu menu-horizontal px-1">
             {links?.map((link) => (
               <li key={link.id}>
-                <Link className="text-lg" to={link.path}>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active text-lg" : " text-lg"
+                  }
+                  to={link.path}
+                >
                   {link.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

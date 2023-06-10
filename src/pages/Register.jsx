@@ -2,17 +2,22 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../Context/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 export default function Register() {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState("");
 
   // context
-  const { registerUser, updateUser, user } = useContext(AuthContext);
+  const { registerUser, updateUser, user, googleLogin } =
+    useContext(AuthContext);
 
   if (user) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
+
+  // google provider
+  const googleProvider = new GoogleAuthProvider();
 
   // create user
   const handleRegister = (e) => {
@@ -55,7 +60,19 @@ export default function Register() {
     e.target.reset();
   };
 
-  document.title = "Tasty Cooks | Register Page";
+  const handleGoogleLogin = () => {
+    googleLogin(googleProvider)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+
+        // naviagte to the location
+        navigate(redirectLocation);
+      })
+      .catch((err) => console.log(err.message));
+  };
+
+  document.title = "Register Page";
 
   return (
     <div className="container hero min-h-screen bg-base-200">
@@ -120,6 +137,31 @@ export default function Register() {
               Sign in
             </Link>
           </p>
+
+          <div className="form-control">
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="btn bg-[#4285F4] hover:bg-[#4285F4]/90 text-white rounded-full"
+            >
+              <svg
+                className="w-4 h-4 mr-2 -ml-1"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fab"
+                data-icon="google"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 488 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+                ></path>
+              </svg>
+              Sign in with Google
+            </button>
+          </div>
 
           <div className="form-control mt-2">
             <button className="btn btn-primary rounded-full">Login</button>

@@ -9,6 +9,7 @@ import DetailsToy from "../pages/DetailsToy";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Blogs from "../pages/Blogs";
+import PrivateRoute from "../components/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +39,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "add-toy",
-    element: <AddToy />,
+    element: (
+      <PrivateRoute>
+        <AddToy />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/blogs",

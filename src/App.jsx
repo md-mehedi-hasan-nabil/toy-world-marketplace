@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
       <Toaster position="top-center" reverseOrder={false} />
     </AuthProvider>
   );
