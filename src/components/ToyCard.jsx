@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Rating from "./Rating";
+import { Rating } from "@smastrom/react-rating";
 
-export default function ToyCard({ toy }) {
-  const { _id, name, picture, price, rating, sub_category } =
-    toy || {};
-    
+export default function ToyCard({ toy, edit }) {
+  const { _id, name, picture, price, rating, sub_category } = toy || {};
+
   return (
     <article
       data-aos="zoom-out-up"
@@ -41,7 +40,8 @@ export default function ToyCard({ toy }) {
         {name}
       </h2>
       <div className="flex items-center">
-        <Rating /> <span className="text-lg">(4)</span>
+        <Rating style={{ maxWidth: 150 }} value={Number(rating)} readOnly /> (
+        {rating})
       </div>
       <div className="flex justify-between items-center mt-3">
         <span className="text-[#312F2E]  font-medium text-lg tracking-widest">
@@ -54,6 +54,11 @@ export default function ToyCard({ toy }) {
           View Details
         </Link>
       </div>
+      {edit && (
+        <Link to={`/edit-toy/${_id}`} className="btn float-right mt-2">
+          Update Toy
+        </Link>
+      )}
     </article>
   );
 }

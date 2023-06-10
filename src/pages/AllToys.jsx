@@ -9,6 +9,10 @@ export default function AllToys() {
   const [toys, setToys] = useState([]);
 
   useEffect(() => {
+    document.title = "All Toy Page";
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     axios
       .get(import.meta.env.VITE_API_BASE_URL + "/api/toy")

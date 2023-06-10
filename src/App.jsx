@@ -3,6 +3,7 @@ import { router } from "./routes/root";
 import "./App.css";
 import "react-tabs/style/react-tabs.css";
 import "aos/dist/aos.css";
+import '@smastrom/react-rating/style.css'
 import AOS from "aos";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";

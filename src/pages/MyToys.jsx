@@ -11,6 +11,10 @@ export default function MyToy() {
   const [toys, setToys] = useState([]);
 
   useEffect(() => {
+    document.title = "My Toy Page";
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     axios
       .get(import.meta.env.VITE_API_BASE_URL + `/api/toy/email/${user.email}`)
@@ -28,7 +32,7 @@ export default function MyToy() {
           {loading ? (
             <Loader />
           ) : toys?.length > 0 ? (
-            toys?.map((toy) => <ToyCard key={toy._id} toy={toy} />)
+            toys?.map((toy) => <ToyCard edit key={toy._id} toy={toy} />)
           ) : (
             <h2 className="text-lg col-span-6">No toy found.</h2>
           )}

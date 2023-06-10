@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Blogs from "../pages/Blogs";
 import PrivateRoute from "../components/PrivateRoute";
+import EditToy from "../pages/EditToy";
 
 export const router = createBrowserRouter([
   {
@@ -31,17 +32,33 @@ export const router = createBrowserRouter([
   },
   {
     path: "/my-toys",
-    element: <MyToys />,
+    element: (
+      <PrivateRoute>
+        <MyToys />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/details/:toyId",
-    element: <DetailsToy />,
+    element: (
+      <PrivateRoute>
+        <DetailsToy />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "add-toy",
+    path: "/add-toy",
     element: (
       <PrivateRoute>
         <AddToy />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/edit-toy/:toyId",
+    element: (
+      <PrivateRoute>
+        <EditToy />
       </PrivateRoute>
     ),
   },

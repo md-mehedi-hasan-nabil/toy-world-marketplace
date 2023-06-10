@@ -21,26 +21,31 @@ export default function Navbar() {
       id: 1,
       name: "Home",
       path: "/",
+      private: false,
     },
     {
       id: 2,
       name: "All Toys",
       path: "/all-toys",
+      private: false,
     },
     {
       id: 3,
       name: "My Toys",
       path: "/my-toys",
+      private: true,
     },
     {
       id: 4,
       name: "Add a toy",
       path: "/add-toy",
+      private: true,
     },
     {
       id: 5,
       name: "Blogs",
       path: "/blogs",
+      private: false,
     },
   ];
   return (
