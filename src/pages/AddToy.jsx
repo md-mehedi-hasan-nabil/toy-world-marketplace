@@ -45,17 +45,6 @@ export default function AddToy() {
       sub_category &&
       description
     ) {
-      console.log({
-        seller_name: user.displayName,
-        seller_email: user.email,
-        name,
-        price,
-        picture,
-        rating,
-        quantity,
-        sub_category,
-        description,
-      });
       axios
         .post(`${import.meta.env.VITE_API_BASE_URL}/api/toy`, {
           seller_name: user.displayName,
@@ -157,7 +146,11 @@ export default function AddToy() {
               >
                 {categories?.length > 0 ? (
                   categories.map((category) => (
-                    <option className="capitalize" value={category.name} key={category._id}>
+                    <option
+                      className="capitalize"
+                      value={category.name}
+                      key={category._id}
+                    >
                       {category.name}
                     </option>
                   ))

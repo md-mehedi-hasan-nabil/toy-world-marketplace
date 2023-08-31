@@ -1,15 +1,32 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Rating } from "@smastrom/react-rating";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-export default function ToyCard({ toy, edit }) {
+export default function ToyCard({ toy, action, refetch }) {
   const { _id, name, picture, price, rating, sub_category } = toy || {};
 
+  function handleDelete() {
+    const result = confirm("Are you sure?");
+    if (result) {
+      axios
+        .delete(`${import.meta.env.VITE_API_BASE_URL}/api/toy/${_id}`)
+        .then(function (response) {
+          console.log(response);
+          if (refetch) {
+            refetch();
+          }
+          toast.success("Toy add Successfull");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+
   return (
-    <article
-      data-aos="zoom-out-up"
-      className="col-span-12 md:col-span-3 rounded-xl shadow-lg bg-[#F3F3F3] p-4 border-2 transition-all border-[#F3F3F3] hover:border-[#6C6A69]"
-    >
+    <article className="col-span-12 md:col-span-3 rounded-xl shadow-lg bg-[#F3F3F3] p-4 border-2 transition-all border-[#F3F3F3] hover:border-[#6C6A69]">
       <div className="flex justify-between items-center">
         <p className="uppercase text-[#6C6A69] tracking-widest font-semibold text-[14px]">
           {sub_category}
@@ -54,10 +71,15 @@ export default function ToyCard({ toy, edit }) {
           View Details
         </Link>
       </div>
-      {edit && (
-        <Link to={`/edit-toy/${_id}`} className="btn float-right mt-2">
-          Update Toy
-        </Link>
+      {action && (
+        <>
+          <button onClick={handleDelete} className="btn float-right mt-2">
+            Delete
+          </button>
+          <Link to={`/edit-toy/${_id}`} className="btn float-right mt-2 mr-2">
+            Update Toy
+          </Link>
+        </>
       )}
     </article>
   );
@@ -65,4 +87,6 @@ export default function ToyCard({ toy, edit }) {
 
 ToyCard.propTypes = {
   toy: PropTypes.object.isRequired,
+  action: PropTypes.bool,
+  refetch: PropTypes.func,
 };

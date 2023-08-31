@@ -15,6 +15,10 @@ export default function MyToy() {
   }, []);
 
   useEffect(() => {
+    fetchToy()
+  }, [user]);
+
+  function fetchToy() {
     setLoading(true);
     axios
       .get(import.meta.env.VITE_API_BASE_URL + `/api/toy/email/${user.email}`)
@@ -23,7 +27,7 @@ export default function MyToy() {
         setToys(res.data);
       })
       .catch((err) => console.error(err));
-  }, [user]);
+  }
 
   return (
     <Layout>
@@ -32,7 +36,7 @@ export default function MyToy() {
           {loading ? (
             <Loader />
           ) : toys?.length > 0 ? (
-            toys?.map((toy) => <ToyCard edit key={toy._id} toy={toy} />)
+            toys?.map((toy) => <ToyCard refetch={fetchToy} action key={toy._id} toy={toy} />)
           ) : (
             <h2 className="text-lg col-span-6">No toy found.</h2>
           )}

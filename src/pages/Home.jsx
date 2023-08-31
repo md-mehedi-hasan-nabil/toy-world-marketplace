@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import Toys from "../components/Toys";
 import Contact from "../components/Contact";
+import About from "../components/About";
 
 export default function Home() {
   useEffect(() => {
@@ -12,6 +13,7 @@ export default function Home() {
     <Layout>
       <main className="container">
         <Hero />
+        <About />
         <Toys />
         <Contact />
       </main>
